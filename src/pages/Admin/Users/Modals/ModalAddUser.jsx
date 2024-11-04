@@ -3,7 +3,7 @@ import { memo } from "react";
 import { useForm } from "react-hook-form";
 import { styleModal } from "~/_constants";
 import MyModal from "~/components/Modal/MyModal";
-function FormAddUser({ open, setOpen }) {
+function ModalAddUser({ show, toggleShow }) {
   const {
     register,
     handleSubmit,
@@ -18,9 +18,9 @@ function FormAddUser({ open, setOpen }) {
 
   return (
     <MyModal
-      open={open}
+      open={show}
       handleClose={() => {
-        setOpen(!open);
+        toggleShow();
         reset();
       }}
     >
@@ -76,4 +76,4 @@ function FormAddUser({ open, setOpen }) {
   );
 }
 
-export default memo(FormAddUser);
+export default memo(ModalAddUser);

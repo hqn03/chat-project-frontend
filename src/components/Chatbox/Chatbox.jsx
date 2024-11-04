@@ -2,9 +2,6 @@ import { Box, Typography } from "@mui/material";
 import Header from "./Header/Header";
 import Input from "./Input/Input";
 import Message from "./Message/Message";
-import { useSelector } from "react-redux";
-import { chatSelector } from "~/redux/selector";
-import { Fragment } from "react";
 import { useParams } from "react-router-dom";
 
 function Chatbox() {

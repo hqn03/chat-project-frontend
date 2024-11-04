@@ -1,41 +1,32 @@
 import {
   Box,
   Button,
-  FormControl,
-  FormHelperText,
   IconButton,
   InputAdornment,
-  InputLabel,
-  OutlinedInput,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { Google, Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
+import { useDispatch, useSelector } from "react-redux";
+import useShow from "~/hooks/useShow";
+import { login } from "~/redux/actions/authActions";
+import { toast, ToastContainer } from "react-toastify";
 function Login() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [show, toggleShow] = useShow();
+  const { loading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
-  const handleLogin = async (data) => {
-    setIsLoading(true);
-
-    // Vi du fetching api
-    const fetchApi = setTimeout(() => {
-      console.log(data);
-      setIsLoading(false);
-      //   Success
-      //   router.navigate("/");
-    }, 3000);
+  const handleLogin = async (user) => {
+    login(user, dispatch);
   };
 
   return (
@@ -70,12 +61,12 @@ function Login() {
           />
           <TextField
             label="Password"
-            type={showPassword ? "text" : "password"}
+            type={show ? "text" : "password"}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton onClick={handleClickShowPassword} edge="end">
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  <IconButton onClick={toggleShow} edge="end">
+                    {show ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               ),
@@ -107,7 +98,7 @@ function Login() {
             type="submit"
             size="large"
             fullWidth
-            disabled={isLoading}
+            disabled={loading}
           >
             Login
           </Button>

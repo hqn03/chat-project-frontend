@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Avatar, Box, Button, Typography } from "@mui/material";
 import { NavLink, Outlet } from "react-router-dom";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import GroupsIcon from "@mui/icons-material/Groups";
@@ -49,6 +49,12 @@ function Dashboard() {
         </Box>
       </Box>
       <Box sx={{ flex: 1 }} padding={4} bgcolor={"background.main"}>
+        <Box display={"flex"} justifyContent={"end"} gap={4}>
+          <Avatar />
+          <Button variant="contained" color="error" onClick={() => {}}>
+            Logout
+          </Button>
+        </Box>
         <Outlet />
       </Box>
     </Box>

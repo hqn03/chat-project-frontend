@@ -1607,6 +1607,7 @@ export const _currentUser = {
   email: "dallone9@bigcartel.com",
   avatar: null,
   dob: "2003-12-20T10:53:22Z",
+  role: "normal",
 };
 
 export const _groups = [

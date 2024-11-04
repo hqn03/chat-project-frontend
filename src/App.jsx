@@ -7,19 +7,36 @@ import Home from "./pages/Home/Home";
 import Users from "./pages/Admin/Users/Users";
 import Dashboard from "./pages/Admin/Dashboard";
 import Chatbox from "./components/Chatbox/Chatbox";
+import { useSelector } from "react-redux";
+import { Snackbar } from "@mui/material";
 function App() {
-  const currentUser = { isAdmin: true };
+  const { user } = useSelector((state) => state.auth);
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={
+            user ? (
+              user.role === "admin" ? (
+                <Navigate to="/admin" />
+              ) : (
+                <Navigate to="chat" />
+              )
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot" element={<ForgotPassword />} />
 
         <Route
           path="/chat"
           element={
-            <ProtectedRoutes allowedRoles={["ADMIN", "USER"]}>
+            <ProtectedRoutes allowedRoles={["normal", "moderate"]}>
               <Home />
             </ProtectedRoutes>
           }
@@ -30,7 +47,7 @@ function App() {
         <Route
           path="/admin"
           element={
-            <ProtectedRoutes allowedRoles={["ADMIN"]}>
+            <ProtectedRoutes allowedRoles={["admin"]}>
               <Dashboard />
             </ProtectedRoutes>
           }
@@ -38,6 +55,8 @@ function App() {
           <Route path="/admin/users" element={<Users />} />
           <Route path="/admin/groups" element={<h1>groups</h1>} />
         </Route>
+
+        <Route path="*" element={<h1>404 not found</h1>} />
       </Routes>
     </BrowserRouter>
   );

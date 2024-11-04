@@ -2,25 +2,20 @@ import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { register } from "~/redux/actions/authActions";
 
 function Register() {
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
   const {
-    register,
+    register: registerForm,
     handleSubmit,
     formState: { errors },
     watch,
   } = useForm();
 
   const handleRegister = async (data) => {
-    setIsLoading(true);
-
-    // Vi du fetching api
-    const fetchApi = setTimeout(() => {
-      console.log(data);
-      setIsLoading(false);
-      //   Success
-    }, 3000);
+    await register(data, dispatch);
   };
   return (
     <Box
@@ -40,7 +35,7 @@ function Register() {
           sx={{ "& .MuiFormControl-root": { my: 2, width: "100%" } }}
         >
           <TextField
-            {...register("name", {
+            {...registerForm("username", {
               required: "Name is required.",
             })}
             label="Name"
@@ -49,7 +44,7 @@ function Register() {
           />
           <TextField
             label="Email"
-            {...register("email", {
+            {...registerForm("email", {
               required: "Email is required.",
               pattern: {
                 value:
@@ -64,11 +59,11 @@ function Register() {
             id="password"
             label="Password"
             type="password"
-            {...register("password", {
+            {...registerForm("password", {
               required: "Password is required.",
               minLength: {
-                value: 8,
-                message: "Password is 8 character at least.",
+                value: 6,
+                message: "Password is 6 character at least.",
               },
               maxLength: {
                 value: 32,
@@ -81,7 +76,7 @@ function Register() {
           <TextField
             type="password"
             label="Confirm password"
-            {...register("confirmPassword", {
+            {...registerForm("confirmPassword", {
               required: "Confirm password is required.",
               validate: (value) => {
                 if (watch("password") != value) {
@@ -106,7 +101,7 @@ function Register() {
             variant="contained"
             size="large"
             fullWidth
-            disabled={isLoading}
+            // disabled={}
           >
             Register
           </Button>

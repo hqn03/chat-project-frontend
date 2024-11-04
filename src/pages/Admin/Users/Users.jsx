@@ -3,6 +3,7 @@ import {
   Avatar,
   Box,
   Button,
+  Modal,
   Pagination,
   Paper,
   Table,
@@ -21,6 +22,7 @@ import Search from "~/components/Search/Search";
 import ModalAddUser from "./Modals/ModalAddUser";
 import ModalEditUser from "./Modals/ModalEditUser";
 import ModalDelete from "./Modals/ModalDelete";
+import useShow from "~/hooks/useShow";
 
 function Users() {
   const [page, setPage] = useState(1);
@@ -28,9 +30,9 @@ function Users() {
   const [users, setUsers] = useState([]);
 
   //   modal
-  const [openAdd, setOpenAdd] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false);
-  const [openDelete, setOpenDelete] = useState(false);
+  const [showAdd, toggleShowAdd] = useShow();
+  const [showEdit, toggleShowEdit] = useShow();
+  const [showDelete, toggleShowDelete] = useShow();
   const [modalUser, setModalUser] = useState({});
 
   useEffect(() => {
@@ -54,17 +56,14 @@ function Users() {
   }, 500);
   return (
     <>
-      <Box display={"flex"} justifyContent={"space-between"}>
-        <Search placeholder="Search name or email" handleSearch={searchUsers} />
-        <Avatar />
-      </Box>
       <Paper sx={{ mt: 2 }}>
-        <Box display={"flex"} justifyContent={"end"} padding={2}>
-          <Button
-            variant="contained"
-            size="small"
-            onClick={() => setOpenAdd(true)}
-          >
+        <Box display={"flex"} justifyContent={"space-between"} padding={2}>
+          <Search
+            placeholder="Search name or email"
+            handleSearch={searchUsers}
+          />
+
+          <Button variant="contained" size="small" onClick={toggleShowAdd}>
             Add user
           </Button>
         </Box>
@@ -100,7 +99,7 @@ function Users() {
                         size="small"
                         onClick={() => {
                           setModalUser(user);
-                          setOpenEdit(true);
+                          toggleShowEdit();
                         }}
                       >
                         Edit
@@ -112,7 +111,7 @@ function Users() {
                         color="error"
                         onClick={() => {
                           setModalUser(user);
-                          setOpenDelete(true);
+                          toggleShowDelete();
                         }}
                       >
                         Delete
@@ -129,9 +128,17 @@ function Users() {
           onChange={handleChangePage}
         />
       </Paper>
-      <ModalAddUser open={openAdd} setOpen={setOpenAdd} />
-      <ModalEditUser open={openEdit} setOpen={setOpenEdit} user={modalUser} />
-      <ModalDelete open={openDelete} setOpen={setOpenDelete} user={modalUser} />
+      <ModalAddUser show={showAdd} toggleShow={toggleShowAdd} />
+      <ModalEditUser
+        show={showEdit}
+        toggleShow={toggleShowEdit}
+        user={modalUser}
+      />
+      <ModalDelete
+        show={showDelete}
+        toggleShow={toggleShowDelete}
+        user={modalUser}
+      />
     </>
   );
 }

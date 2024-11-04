@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import { styleModal } from "~/_constants";
 import MyModal from "~/components/Modal/MyModal";
 
-function ModalEditUser({ open, setOpen, user }) {
+function ModalEditUser({ show, toggleShow, user }) {
   const { register, handleSubmit } = useForm();
 
   const updateUser = (data) => {
@@ -22,7 +22,7 @@ function ModalEditUser({ open, setOpen, user }) {
   };
 
   return (
-    <MyModal open={open} handleClose={() => setOpen(!open)}>
+    <MyModal open={show} handleClose={() => toggleShow()}>
       <Box sx={styleModal}>
         <Typography variant="h6">Edit user</Typography>
 

@@ -1,1 +1,1 @@
-export const chatSelector = (state) => state.chat.value;
+export const selectUser = (state) => state.auth.user;

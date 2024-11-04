@@ -3,18 +3,13 @@ import React from "react";
 import { styleModal } from "~/_constants";
 import MyModal from "~/components/Modal/MyModal";
 
-function ModalDelete({ open, setOpen, user }) {
+function ModalDelete({ show, toggleShow, user }) {
   const handleDelete = () => {
     console.log(user.email + "is deleted");
-    setOpen(!open);
+    toggleShow();
   };
   return (
-    <MyModal
-      open={open}
-      handleClose={() => {
-        setOpen(!open);
-      }}
-    >
+    <MyModal open={show} handleClose={toggleShow}>
       <Box sx={styleModal}>
         <Typography variant="h6">Delete user</Typography>
         <Typography sx={{ mt: 2 }}>

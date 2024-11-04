@@ -1,13 +1,13 @@
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { selectUser } from "~/redux/selector";
 const userInfo = { role: "admin" };
 
 const ProtectedRoutes = ({ children, allowedRoles }) => {
-  const userHasRequireRole =
-    userInfo &&
-    Array.isArray(allowedRoles) &&
-    allowedRoles.includes(userInfo.role.toUpperCase());
+  const user = useSelector(selectUser);
+  const userHasRequireRole = user && allowedRoles.includes(user.role);
   //if no user is authenticated, navigate to login page
-  if (!userInfo) {
+  if (!user) {
     return <Navigate to="/login" />;
   }
 
