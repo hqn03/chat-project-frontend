@@ -8,12 +8,14 @@ import Users from "./pages/Admin/Users/Users";
 import Dashboard from "./pages/Admin/Dashboard";
 import Chatbox from "./components/Chatbox/Chatbox";
 import { useSelector } from "react-redux";
-import { Snackbar } from "@mui/material";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const { user } = useSelector((state) => state.auth);
 
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
         <Route
           path="/"

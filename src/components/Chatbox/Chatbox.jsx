@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
 import Header from "./Header/Header";
 import Input from "./Input/Input";
 import Message from "./Message/Message";

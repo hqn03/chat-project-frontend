@@ -3,9 +3,12 @@ import Sidebar from "~/components/Sidebar/Sidebar";
 
 import { Outlet, useParams } from "react-router-dom";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import { useEffect } from "react";
 
 function Home() {
   const { id } = useParams();
+
+  useEffect(() => {}, []);
 
   return (
     <Box height={"100vh"}>
