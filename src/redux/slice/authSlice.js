@@ -21,7 +21,6 @@ const authSlice = createSlice({
       state.user = action.payload;
     },
     loginError: (state) => {
-      console.log("loi login");
       state.loading = false;
     },
     logoutSuccess: (state) => {

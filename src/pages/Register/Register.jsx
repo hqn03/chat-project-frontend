@@ -1,11 +1,11 @@
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { register } from "~/redux/actions/authActions";
 
 function Register() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     register: registerForm,
@@ -15,7 +15,7 @@ function Register() {
   } = useForm();
 
   const handleRegister = async (data) => {
-    await register(data, dispatch);
+    await register(data, dispatch, navigate);
   };
   return (
     <Box
