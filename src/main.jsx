@@ -8,14 +8,14 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <GoogleOAuthProvider clientId={process.env.CLIENT_ID}>
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <App />
-        </ThemeProvider>
-      </Provider>
-    </GoogleOAuthProvider>
-  </StrictMode>
+  //   <StrictMode>
+  <GoogleOAuthProvider clientId={process.env.CLIENT_ID}>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
+    </Provider>
+  </GoogleOAuthProvider>
+  //   </StrictMode>
 );

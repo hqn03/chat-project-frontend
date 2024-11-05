@@ -1,7 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { act } from "react";
-import { _currentUser } from "~/_fakeData";
-import { logout } from "../actions/authActions";
 
 const initState = {
   user: JSON.parse(localStorage.getItem("userInfo")) || null,

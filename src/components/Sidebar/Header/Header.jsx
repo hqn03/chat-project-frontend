@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "~/redux/selector";
 import useShow from "~/hooks/useShow";
 import { logout } from "~/redux/actions/authActions";
-import { Star } from "@mui/icons-material";
+import { apiFetchUser } from "~/api";
 
 function Header() {
   const user = useSelector(selectUser);
@@ -19,6 +19,11 @@ function Header() {
   const searchChat = debounce(async (value) => {
     console.log("call api search chat: ", value);
   }, 500);
+
+  const handleProfile = async () => {
+    const test = await apiFetchUser(1);
+    console.log(test);
+  };
 
   const handleLogout = () => {
     logout(dispatch);
@@ -64,7 +69,10 @@ function Header() {
           gap: 2,
         }}
       >
-        <ButtonBase sx={{ justifyContent: "start", gap: 4 }}>
+        <ButtonBase
+          sx={{ justifyContent: "start", gap: 4 }}
+          onClick={handleProfile}
+        >
           <Avatar alt={user.name || user.email} src={user.avatar || "none"} />
           <Typography variant="h6">{user.name || user.email}</Typography>
         </ButtonBase>
